@@ -1,4 +1,4 @@
-static.go
+pkged.go
 
 build
 vendor

@@ -3,5 +3,5 @@
 package proj
 
 import (
-	_ "github.com/go-bindata/go-bindata/go-bindata"
+	_ "github.com/markbates/pkger/cmd/pkger"
 )

@@ -3,20 +3,20 @@
 default: build/gbdfaild
 GOFILES := $(shell find . | grep -v vendor | grep go$$ )
 
-build/gbdfaild: static.go $(GOFILES)
-	@go build -o $@ ./cmd/gbdfaild
+build/gbdfaild: pkged.go $(GOFILES)
+	go build -o $@ ./cmd/gbdfaild
 
-static.go: build/go-bindata $(shell find s -type f)
-	./build/go-bindata -o $@ -fs -pkg gbdfail -prefix "s/" s/...
+pkged.go: build/pkgr $(shell find s -type f)
+	./build/pkgr -include /s
 
-build/go-bindata: vendor
-	go build -o build/go-bindata ./vendor/github.com/go-bindata/go-bindata/go-bindata
+build/pkgr: vendor
+	go build -o build/pkgr ./vendor/github.com/markbates/pkger/cmd/pkger
 
 vendor:
 	go mod vendor
 
 clean:
-	rm -rf build static.go vendor
+	rm -rf build pkged.go vendor
 
-test: static.go
+test: pkged.go
 	go test
