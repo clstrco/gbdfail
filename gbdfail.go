@@ -7,5 +7,5 @@ import (
 )
 
 func Routes(mux *http.ServeMux) {
-	mux.Handle("/s", http.FileServer(pkger.Dir("/s")))
+	mux.Handle("/s/", http.StripPrefix("/s/", http.FileServer(pkger.Dir("/s"))))
 }
